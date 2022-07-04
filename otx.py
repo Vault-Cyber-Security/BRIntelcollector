@@ -26,4 +26,15 @@ for i in range(len(dta)):
         pdtable = pdtable.append(dta[i] , ignore_index=True)
 
 pdtable.to_csv('./otxbr.csv',index=False)      
-        
+def consulta_dominio(otx):
+    data=[]
+    dominio=str(input('digite o dominio que deseja buscar'))
+    dc=otx.search_pulses(dominio)
+    domain_table=pd.DataFrame()
+    for i in range(len(dc["results"])):
+        pulse_id=dc["results"][i]["id"]
+        pulse_details = otx.get_pulse_details(pulse_id)
+        data.append(pulse_details)
+    for i in range(len(data)):
+        domain_table = domain_table.append(data[i] , ignore_index=True)
+    domaintable.to_csv('./otxconsultadominio.csv',index=False)
